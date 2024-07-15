@@ -56,6 +56,23 @@ services:
       - ./ChinookDatabase/DataSources/Chinook_MySql_AutoIncrementPKs.sql:/docker-entrypoint-initdb.d/Chinook_MySql_AutoIncrementPKs.sql
 
   #----------------------------------------------------------------------------
+  # MariaDB Container
+  # https://hub.docker.com/_/mariadb
+  # Commands:
+  #   mysql -u chinook -p Chinook
+  #----------------------------------------------------------------------------
+  db:
+    image: mariadb
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: example
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./ChinookDatabase/DataSources/Chinook_MySql.sql:/docker-entrypoint-initdb.d/Chinook_MariaDB.sql
+      - ./ChinookDatabase/DataSources/Chinook_MySql_AutoIncrementPKs.sql:/docker-entrypoint-initdb.d/Chinook_MariaDB_AutoIncrementPKs.sql
+  
+  #----------------------------------------------------------------------------
   # Oracle Container
   # https://container-registry.oracle.com/ords/ocr/ba/database/express
   # https://hub.docker.com/r/gvenzl/oracle-xe (Apple M chips)
